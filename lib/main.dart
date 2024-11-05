@@ -1,72 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:butter_and_batter/menu.dart';
 
-void main() => runApp(const MyHomePage());
+void main() {
+  runApp(const MyApp());
+}
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Butter and Batter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Butter and Batter'),
-        ),
-        body: const SnackBarPage(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // TRY THIS: Try running your application with "flutter run". You'll see
+        // the application has a purple toolbar. Then, without quitting the app,
+        // try changing the seedColor in the colorScheme below to Colors.green
+        // and then invoke "hot reload" (save your changes or press the "hot
+        // reload" button in a Flutter-supported IDE, or press "r" if you used
+        // the command line to start the app).
+        //
+        // Notice that the counter didn't reset back to zero; the application
+        // state is not lost during the reload. To reset the state, use hot
+        // restart instead.
+        //
+        // This works for code too, not just values: Most code changes can be
+        // tested with just a hot reload.
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
+      home: MyHomePage(),
     );
   }
 }
 
-class SnackBarPage extends StatelessWidget {
-  const SnackBarPage({super.key});
 
-  void _showSnackbar(BuildContext context, String message) {
-    final snackBar = SnackBar(
-      content: Text(message),
-      duration: const Duration(seconds: 1),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ElevatedButton.icon(
-            onPressed: () => _showSnackbar(context, "Kamu telah menekan tombol Lihat Daftar Produk"),
-            icon: const Icon(Icons.list),
-            label: const Text("Lihat Daftar Produk"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              foregroundColor: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton.icon(
-            onPressed: () => _showSnackbar(context, "Kamu telah menekan tombol Tambah Produk"),
-            icon: const Icon(Icons.add),
-            label: const Text("Tambah Produk"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green, 
-              foregroundColor: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton.icon(
-            onPressed: () => _showSnackbar(context, "Kamu telah menekan tombol Logout"),
-            icon: const Icon(Icons.logout),
-            label: const Text("Logout"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red, 
-              foregroundColor: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

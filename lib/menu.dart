@@ -8,7 +8,7 @@ class MyHomePage extends StatelessWidget {
   final String className = 'PBP A'; // Kelas
   
   final List<ItemHomepage> items = [
-         ItemHomepage("Lihat Daftar Produk ", Icons.cake, const Color.fromARGB(255, 27, 161, 141)),
+         ItemHomepage("Lihat Daftar Produk ", Icons.cake, const Color.fromRGBO(255, 128, 0, 1)),
          ItemHomepage("Tambah Produk", Icons.add, const Color.fromARGB(255, 252, 178, 104)),
          ItemHomepage("Logout", Icons.logout, const Color.fromARGB(255, 183, 63, 54)),
   ];
@@ -28,7 +28,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.
-        backgroundColor: const Color.fromARGB(255, 255, 168, 68)
+        backgroundColor: const Color.fromARGB(255, 106, 59, 5)
       ),
       // Body halaman dengan padding di sekelilingnya.
       body: Padding(

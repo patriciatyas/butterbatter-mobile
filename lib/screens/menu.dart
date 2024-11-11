@@ -30,7 +30,10 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.
-        backgroundColor: const Color.fromARGB(255, 106, 59, 5)
+        backgroundColor: const Color.fromARGB(255, 106, 59, 5),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+          ),
       ),
       drawer: const LeftDrawer(),
       // Body halaman dengan padding di sekelilingnya.

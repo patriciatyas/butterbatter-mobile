@@ -178,7 +178,6 @@ c. Logout
 4. Aplikasi mengarahkan pengguna kembali ke halaman login.
 Dengan mekanisme ini, autentikasi dilakukan dengan aman menggunakan sesi yang dikelola oleh Django, dan Flutter bertanggung jawab untuk menyimpan serta menggunakan cookies sesi tersebut.
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
-### Checklist Autentikasi Django ke Flutter
 
 #### **Setup Autentikasi Django**
 1. **Buat Django App:**

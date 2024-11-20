@@ -178,4 +178,87 @@ c. Logout
 4. Aplikasi mengarahkan pengguna kembali ke halaman login.
 Dengan mekanisme ini, autentikasi dilakukan dengan aman menggunakan sesi yang dikelola oleh Django, dan Flutter bertanggung jawab untuk menyimpan serta menggunakan cookies sesi tersebut.
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+### Checklist Autentikasi Django ke Flutter
+
+#### **Setup Autentikasi Django**
+1. **Buat Django App:**
+   - Buat app `authentication` dan tambahkan ke `INSTALLED_APPS`.
+2. **Install & Konfigurasi CORS:**
+   - Jalankan `pip install django-cors-headers`.
+   - Tambahkan `corsheaders` ke `INSTALLED_APPS` dan `MIDDLEWARE`.
+   - Tambahkan pengaturan:
+     ```python
+     CORS_ALLOW_ALL_ORIGINS = True
+     CORS_ALLOW_CREDENTIALS = True
+     CSRF_COOKIE_SECURE = True
+     SESSION_COOKIE_SECURE = True
+     CSRF_COOKIE_SAMESITE = 'None'
+     SESSION_COOKIE_SAMESITE = 'None'
+     ```
+   - Tambahkan `"10.0.2.2"` ke `ALLOWED_HOSTS`.
+3. **Buat Login View:**
+   - Tambahkan fungsi `login` pada `authentication/views.py`.
+   - Tambahkan routing di `authentication/urls.py`:
+     ```python
+     path('login/', login, name='login')
+     ```
+4. **Tambahkan Path di URLs Utama:**
+   - Di `urls.py` utama, tambahkan:
+     ```python
+     path('auth/', include('authentication.urls'))
+     ```
+
+#### **Integrasi Autentikasi pada Flutter**
+5. **Install Dependencies:**
+   - Jalankan:
+     ```bash
+     flutter pub add provider
+     flutter pub add pbp_django_auth
+     ```
+6. **Modifikasi `main.dart`:**
+   - Tambahkan `Provider` untuk membagikan `CookieRequest` ke seluruh aplikasi.
+7. **Buat `login.dart`:**
+   - Tambahkan form login dengan autentikasi menggunakan endpoint `/auth/login/`.
+
+#### **Setup Register Django**
+8. **Buat Register View:**
+   - Tambahkan fungsi `register` di `authentication/views.py`.
+   - Tambahkan routing di `authentication/urls.py`:
+     ```python
+     path('register/', register, name='register')
+     ```
+9. **Buat `register.dart` di Flutter:**
+   - Buat form register untuk mengirim data ke `/auth/register/`.
+
+#### **Integrasi Fetch Data dari Django ke Flutter**
+10. **Tambahkan Dependency HTTP:**
+    - Jalankan `flutter pub add http`.
+    - Tambahkan izin akses Internet di `AndroidManifest.xml`.
+11. **Setup Fetch Data:**
+    - Buat model dengan Quicktype dan tambahkan di folder `models/`.
+    - Buat file `list_moodentry.dart` untuk menampilkan data dari endpoint `/json/`.
+
+#### **Integrasi Form Flutter ke Django**
+12. **Buat View untuk Create Mood:**
+    - Tambahkan fungsi `create_mood_flutter` di `main/views.py`.
+    - Tambahkan routing di `main/urls.py`:
+      ```python
+      path('create-flutter/', create_mood_flutter, name='create_mood_flutter')
+      ```
+13. **Modifikasi Form Flutter:**
+    - Gunakan `CookieRequest` untuk mengirim data dari form ke endpoint `/create-flutter/`.
+
+#### **Implementasi Logout**
+14. **Buat Logout View di Django:**
+    - Tambahkan fungsi `logout` di `authentication/views.py`.
+    - Tambahkan routing di `authentication/urls.py`:
+      ```python
+      path('logout/', logout, name='logout')
+      ```
+15. **Integrasi Logout pada Flutter:**
+    - Tambahkan logika logout ke widget yang sesuai menggunakan endpoint `/auth/logout/`.
+
+#### **Testing**
+16. **Test Semua Fungsi:**
+    - Coba login, register, fetch data, kirim data, dan logout melalui Flutter.
 

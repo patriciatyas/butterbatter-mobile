@@ -122,3 +122,60 @@ child: InkWell(
 
 Untuk aplikasi dengan banyak bagian, penggunaan Drawer sendiri sangat membantu dalam mengelola navigasi antar halaman. LeftDrawer disini digunakan sebagai menu samping yang memungkinkan pengguna untuk berpindah antara halaman-halaman yang berbeda. Masing-masing ListTile mewakili item menu di Drawer, dan setiap itemnya dapat digunakan untuk menavigasi ke halaman yang berbeda.
 
+# TUGAS INDIVIDU 9
+## Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?
+Model diperlukan untuk mengatur struktur data JSON agar lebih terorganisir dan mudah diproses
+- Model memetakan data JSON dari server ke objek di aplikasi. Ini memudahkan pengelolaan data.
+- Dengan model, kita dapat memvalidasi data yang diterima atau dikirim untuk memastikan kesesuaiannya.
+- Model membuat kode lebih modular dan mudah dipahami, sehingga mempermudah debugging dan pengembangan di masa depan.
+J
+ika tidak menggunakan model, apa yang terjadi?
+- Tanpa model, data JSON mungkin tidak terstruktur dengan baik, sehingga sulit diproses. Misalnya, tipe data yang tidak sesuai dapat memicu error saat memproses data.
+- Parsing data JSON secara manual menyebabkan kode menjadi panjang dan sulit dipelihara.
+## Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini
+Library `http` digunakan untuk:
+- Memungkinkan aplikasi Flutter untuk melakukan `GET`, `POST`, `PUT`, dan `DELETE` ke API server.
+- Library ini membantu mengelola respons dari server, seperti membaca body, status kode, atau header.
+- Memanfaatkan fitur `Future` untuk menangani permintaan dan respons secara asynchronous, sehingga UI tetap responsif.
+## Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+`CookieRequest` adalah kelas untuk menangani komunikasi HTTP yang membutuhkan mekanisme sesi (cookies). Fungsi CookieRequest adalah:
+- Memastikan cookies disimpan dan dikirim bersama setiap permintaan ke server, memungkinkan sesi pengguna dipertahankan.
+- Digunakan untuk mengirim data otentikasi seperti login, sehingga server dapat mengenali pengguna.
+- Karena cookies menyimpan data sesi, CookieRequest memastikan status pengguna seperti login tetap konsisten di seluruh aplikasi.
+
+Mengapa perlu dibagikan ke semua komponen?
+Agar setiap komponen di aplikasi memiliki akses ke sesi yang sama. Ini penting untuk fitur seperti login, sehingga setiap bagian aplikasi dapat mengakses data yang sama tanpa harus login ulang.
+
+## Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.
+1. Pengguna memasukkan data melalui antarmuka Flutter (form atau input field).
+2. Data input dikirim melalui permintaan HTTP menggunakan library seperti http atau CookieRequest. Jika pengiriman menggunakan POST, data dikirim dalam body permintaan.
+3. Server (misalnya Django) menerima permintaan, memproses data, dan mengirimkan respons dalam format JSON.
+4. Aplikasi Flutter menerima data JSON dari server dan mem-parsing-nya menggunakan model atau langsung membaca data mentah.
+5. Data yang sudah diproses diubah menjadi widget Flutter, seperti ListView atau Text, untuk ditampilkan kepada pengguna.
+
+## Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+a. Login
+1. Pengguna memasukkan username dan password di aplikasi Flutter.
+2. Aplikasi mengirim data ke endpoint login Django menggunakan permintaan POST.
+3. Django memvalidasi kredensial:
+- Jika valid, Django membuat sesi dan mengembalikan respons dengan cookies sesi.
+- Jika tidak valid, Django mengembalikan error.
+4. Flutter menyimpan cookies sesi menggunakan CookieRequest untuk digunakan dalam permintaan berikutnya.
+5. Setelah berhasil login, Flutter menampilkan menu utama sesuai status pengguna.
+
+b. Register
+1. Pengguna memasukkan detail akun baru di aplikasi Flutter.
+2. Aplikasi mengirim data ke endpoint register Django menggunakan permintaan POST.
+3. Django memvalidasi data:
+- Jika valid, Django menyimpan akun baru ke database.
+- Jika tidak valid, Django mengembalikan pesan error.
+4. Setelah berhasil register, pengguna dapat login menggunakan akun baru.
+
+c. Logout
+1. Flutter mengirim permintaan logout ke endpoint Django menggunakan POST.
+2. Django menghapus sesi pengguna dan cookies yang terkait.
+3. Flutter menghapus cookies lokal di aplikasi menggunakan CookieRequest.
+4. Aplikasi mengarahkan pengguna kembali ke halaman login.
+Dengan mekanisme ini, autentikasi dilakukan dengan aman menggunakan sesi yang dikelola oleh Django, dan Flutter bertanggung jawab untuk menyimpan serta menggunakan cookies sesi tersebut.
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+

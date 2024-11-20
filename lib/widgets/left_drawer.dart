@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:butter_and_batter/screens/menu.dart';
 import 'package:butter_and_batter/screens/productentry_form.dart';
+import 'package:butter_and_batter/screens/list_productentry.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -10,11 +11,11 @@ class LeftDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
+              color: Color.fromARGB(255, 93, 47, 0),
             ),
-            child: const Column(
+            child: Column(
               children: [
                 Text(
                   'Butter and Batter',
@@ -50,7 +51,7 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.cake),
+            leading: const Icon(Icons.add),
             title: const Text('Tambah Pastry'),
             // Bagian redirection ke MoodEntryFormPage
             onTap: () {
@@ -60,6 +61,17 @@ class LeftDrawer extends StatelessWidget {
                     builder: (context) => const ProductEntryFormPage(),
                   ));
             },
+          ),
+          ListTile(
+              leading: const Icon(Icons.cake),
+              title: const Text('Daftar Pastri'),
+              onTap: () {
+                  // Route menu ke halaman pastry
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ProductEntryPage()),
+                  );
+              },
           ),
         ],
       ),
